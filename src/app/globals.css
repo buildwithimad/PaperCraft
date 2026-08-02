@@ -128,3 +128,97 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .question-card-enter {
+    animation: question-card-enter 180ms ease-out;
+    transform-origin: top;
+  }
+
+  .question-card-exit {
+    animation: question-card-exit 150ms ease-in forwards;
+    overflow: hidden;
+    transform-origin: top;
+  }
+}
+
+@keyframes question-card-enter {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0.98);
+  }
+  to {
+    max-height: 420px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes question-card-exit {
+  from {
+    max-height: 420px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0.98);
+  }
+}
+
+
+@media print {
+  /* Hide the browser's default headers (like localhost:3000/en/paper) and footers */
+  @page {
+    size: A4 portrait;
+    margin: 5mm; /* Very small margin to maximize space */
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background-color: white !important;
+  }
+}
+
+
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only the paper */
+  #paper-sheet,
+  #paper-sheet * {
+    visibility: visible;
+  }
+
+  /* Position paper at top-left */
+  #paper-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none !important;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    background: white;
+  }
+
+  /* Remove page margins */
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
