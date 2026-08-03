@@ -1,50 +1,51 @@
 import LoginForm from "@/components/auth/LoginForm";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { BookOpenText } from "lucide-react";
+import Image from "next/image";
 
 export default function LoginPage() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center bg-muted/40 px-4 py-12 sm:px-6 lg:px-8">
-      {/* Decorative subtle background gradient */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
-
-      <div className="w-full max-w-md space-y-6">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[420px] space-y-8">
+        
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center">
-          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border bg-background shadow-xs text-primary">
-            <BookOpenText className="size-6" />
+          {/* Removed border, rounded, bg-card, and fixed size classes */}
+          <div className="mb-4 flex items-center justify-center">
+            <Image 
+              src="/logo.png" 
+              alt="PaperCraft Logo" 
+              width={80} 
+              height={80} 
+              priority
+              className="object-contain" 
+            />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
             PaperCraft
           </h1>
-          <p className="text-xs text-muted-foreground mt-1">
+          <p className="mt-1.5 text-sm text-muted-foreground">
             Professional Question Paper Builder
           </p>
         </div>
 
         {/* Login Card */}
-        <Card className="border bg-card/50 backdrop-blur-xs shadow-sm">
-          <CardHeader className="space-y-1 text-center sm:text-left">
-            <CardTitle className="text-xl">Welcome back</CardTitle>
-            <CardDescription>
-              Enter your credentials to access your dashboard
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <LoginForm />
-          </CardContent>
-        </Card>
+        <div className="rounded-xl border bg-card p-6 sm:p-8">
+          <div className="mb-6 flex flex-col space-y-2 text-center sm:text-left">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
+              Welcome Back
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Sign in to continue to PaperCraft.
+            </p>
+          </div>
+
+          <LoginForm />
+        </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} PaperCraft. All rights reserved.
+        <p className="text-center text-sm text-muted-foreground">
+          © 2026 PaperCraft
         </p>
+        
       </div>
     </main>
   );
