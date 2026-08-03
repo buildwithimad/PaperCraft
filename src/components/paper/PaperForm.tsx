@@ -86,8 +86,8 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
               ? "پیپر کامیابی سے اپ ڈیٹ ہو گیا!"
               : "پیپر کامیابی سے محفوظ ہو گیا!"
             : isEdit
-            ? "Paper updated successfully!"
-            : "Paper saved successfully!"
+              ? "Paper updated successfully!"
+              : "Paper saved successfully!"
         );
         router.push(`/${lang}/paper/${result.paperId}`);
       } else {
@@ -106,7 +106,7 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
 
   return (
     <div
-      className="mx-auto max-w-[1200px] space-y-10 px-4 py-10 sm:px-6 lg:px-8"
+      className="mx-auto max-w-[1400px] space-y-10 px-2 py-10 sm:px-2 lg:px-8"
       dir={isUrdu ? "rtl" : "ltr"}
     >
       <div className="space-y-2">
@@ -116,8 +116,8 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
               ? "پیپر میں ترمیم کریں"
               : "امتحانی پرچہ بنائیں"
             : isEdit
-            ? "Edit Paper"
-            : "Create Examination Paper"}
+              ? "Edit Paper"
+              : "Create Examination Paper"}
         </h1>
         <p className="text-sm text-muted-foreground">
           {isUrdu
@@ -125,8 +125,8 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
               ? "محفوظ شدہ پیپر میں تبدیلیاں کریں۔"
               : "اسکولوں کے لیے پیشہ ورانہ امتحانی پرچے تیار کریں۔"
             : isEdit
-            ? "Make changes to your saved paper."
-            : "Create professional examination papers for schools."}
+              ? "Make changes to your saved paper."
+              : "Create professional examination papers for schools."}
         </p>
       </div>
 
@@ -264,8 +264,8 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
                     ? "اپ ڈیٹ ہو رہا ہے..."
                     : "محفوظ ہو رہا ہے..."
                   : isEdit
-                  ? "Updating Paper..."
-                  : "Saving Paper..."
+                    ? "Updating Paper..."
+                    : "Saving Paper..."
               }
               className="w-full rounded-md sm:w-auto sm:min-w-[200px]"
             >
@@ -274,8 +274,8 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
                   ? "پیپر اپ ڈیٹ کریں"
                   : "پیپر بنائیں اور پرنٹ کریں"
                 : isEdit
-                ? "Update Paper"
-                : "Generate Paper & Print"}
+                  ? "Update Paper"
+                  : "Generate Paper & Print"}
             </Button>
           </div>
         </form>
