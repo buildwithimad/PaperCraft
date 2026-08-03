@@ -1,6 +1,6 @@
 "use server";
 
-import { deletePaper } from "@/services/paperServices";
+import { deletePaper, updatePaper } from "@/services/paperServices";
 import { createClient } from "@/utils/supabase/server";
 import { PaperValues, paperSchema } from "@/validations/paper";
 import { revalidatePath } from "next/cache";
@@ -11,9 +11,19 @@ export async function savePaperAction(data: PaperValues) {
     const parsedData = paperSchema.parse(data);
     const supabase = await createClient();
 
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      throw new Error("User not authenticated");
+    }
+
     const { data: insertedData, error } = await supabase
       .from("papers")
       .insert({
+        user_id: user.id,
         school_name: parsedData.schoolName,
         exam_name: parsedData.examName,
         class_name: parsedData.className,
@@ -22,10 +32,7 @@ export async function savePaperAction(data: PaperValues) {
         time_allowed: parsedData.time || "",
         total_marks: parsedData.totalMarks,
         general_instructions: parsedData.instructions || null,
-        
-        // The entire object (including the sections) still goes in here
-        // so you can easily reload the whole form state later.
-        paper_data: parsedData, 
+        paper_data: parsedData,
       })
       .select("id")
       .single();
@@ -62,5 +69,22 @@ export async function deletePaperAction(
           ? error.message
           : "Failed to delete paper.",
     };
+  }
+}
+
+export async function updatePaperAction(id: string, data: PaperValues) {
+  try {
+    const parsedData = paperSchema.parse(data);
+    await updatePaper(id, parsedData);
+
+    revalidatePath("/en/papers");
+    revalidatePath("/ur/papers");
+    revalidatePath(`/en/paper/${id}`);
+    revalidatePath(`/ur/paper/${id}`);
+
+    return { success: true, paperId: id };
+  } catch (error) {
+    console.error("Error updating paper:", error);
+    return { success: false, error: "Failed to update paper." };
   }
 }

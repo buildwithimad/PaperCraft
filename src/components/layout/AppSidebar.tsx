@@ -103,9 +103,10 @@ export default function AppSidebar({ lang }: Props) {
                     render={<Link href={item.href} />}
                     isActive={pathname === item.href}
                     tooltip={item.title}
+                    className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground transition-all duration-200 rounded-lg hover:bg-sidebar-accent/50"
                   >
-                    <item.icon />
-                    <span>{item.title}</span>
+                    <item.icon className="h-4 w-4" />
+                    <span className="font-medium">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

@@ -21,7 +21,7 @@ export default function DashboardLayout({ lang, children }: Props) {
   return (
     <div
       className={cn(
-        "min-h-screen bg-background font-sans text-foreground antialiased",
+        "min-h-screen bg-[#FAFAFA] font-sans text-foreground antialiased",
         montserrat.variable
       )}
       dir={isUrdu ? "rtl" : "ltr"}

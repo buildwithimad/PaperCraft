@@ -6,6 +6,7 @@ import {
   GraduationCap,
   Inbox,
   Loader2,
+  Pencil,
   PlusCircle,
   Trash2,
 } from "lucide-react";
@@ -101,11 +102,11 @@ export default function PapersClient({ papers, lang }: Props) {
 
   return (
     <div
-      className="mx-auto max-w-[1200px] space-y-8 px-4 py-8 sm:px-6 lg:px-8"
+      className="mx-auto max-w-[1200px] space-y-10 px-4 py-10 sm:px-6 lg:px-8"
       dir={isUrdu ? "rtl" : "ltr"}
     >
-      <div className="space-y-1">
-        <h1 className="text-3xl font-semibold tracking-tight">
+      <div className="space-y-2">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
           {isUrdu ? "تمام پیپرز" : "All Papers"}
         </h1>
         <p className="text-sm text-muted-foreground">
@@ -118,9 +119,9 @@ export default function PapersClient({ papers, lang }: Props) {
       <Separator />
 
       {papers.length === 0 ? (
-        <Card className="rounded-lg border shadow-none">
-          <CardContent className="flex flex-col items-center gap-3 py-16 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-md border">
+        <Card className="border-slate-200 bg-white">
+          <CardContent className="flex flex-col items-center gap-4 py-24 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-slate-200 bg-slate-50">
               <Inbox className="h-5 w-5 text-muted-foreground" />
             </div>
             <div className="space-y-1">
@@ -142,18 +143,18 @@ export default function PapersClient({ papers, lang }: Props) {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {papers.map((paper) => {
             const isDeleting = deletingId === paper.id;
 
             return (
               <Card
                 key={paper.id}
-                className="flex flex-col rounded-lg border shadow-none"
+                className="flex flex-col border-slate-200"
               >
-                <CardHeader className="space-y-1.5">
+                <CardHeader className="space-y-2 bg-slate-50/50 pb-4">
                   <div className="flex items-start justify-between gap-2">
-                    <CardTitle className="line-clamp-1 text-base font-medium">
+                    <CardTitle className="line-clamp-1 text-lg font-semibold text-slate-900">
                       {paper.exam_name}
                     </CardTitle>
                     <Badge
@@ -196,8 +197,8 @@ export default function PapersClient({ papers, lang }: Props) {
                   </div>
                 </CardContent>
 
-                <CardFooter className="flex gap-2">
-                  <Button asChild size="sm" className="flex-1 rounded-md">
+                <CardFooter className="flex w-full items-center gap-2">
+                  <Button asChild size="sm" className="flex-1 min-w-0 rounded-lg">
                     <Link
                       href={`/${lang}/paper/${paper.id}`}
                       aria-label={
@@ -206,29 +207,47 @@ export default function PapersClient({ papers, lang }: Props) {
                           : `Open ${paper.exam_name}`
                       }
                     >
-                      {isUrdu ? "کھولیں" : "Open"}
+                      <span className="truncate">{isUrdu ? "کھولیں" : "Open"}</span>
                     </Link>
                   </Button>
 
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="icon-sm"
-                    className="shrink-0 rounded-md cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    aria-label={
-                      isUrdu
-                        ? `${paper.exam_name} حذف کریں`
-                        : `Delete ${paper.exam_name}`
-                    }
-                    disabled={deletingId !== null}
-                    onClick={() => openDeleteDialog(paper)}
-                  >
-                    {isDeleting ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Trash2 className="h-4 w-4" />
-                    )}
-                  </Button>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="icon-sm"
+                      className="rounded-lg cursor-pointer"
+                      aria-label={
+                        isUrdu
+                          ? `${paper.exam_name} میں ترمیم کریں`
+                          : `Edit ${paper.exam_name}`
+                      }
+                    >
+                      <Link href={`/${lang}/paper/${paper.id}/edit`}>
+                        <Pencil className="h-4 w-4" />
+                      </Link>
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon-sm"
+                      className="rounded-lg cursor-pointer"
+                      aria-label={
+                        isUrdu
+                          ? `${paper.exam_name} حذف کریں`
+                          : `Delete ${paper.exam_name}`
+                      }
+                      disabled={deletingId !== null}
+                      onClick={() => openDeleteDialog(paper)}
+                    >
+                      {isDeleting ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
                 </CardFooter>
               </Card>
             );
