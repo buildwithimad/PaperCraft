@@ -27,11 +27,7 @@ export const longQuestionSchema = z.object({
   marks: z.string().min(1, { message: "Marks required" }),
 });
 
-export const matchingRowSchema = z.object({
-  id: z.string().optional(),
-  left: z.string().min(1, { message: "Left column text required" }),
-  right: z.string().min(1, { message: "Right column text required" }),
-});
+
 
 // --- 2. Section Schemas (No .default([]) here!) ---
 export const mcqSectionSchema = z.object({
@@ -54,12 +50,6 @@ export const longQuestionSectionSchema = z.object({
   questions: z.array(longQuestionSchema),
 });
 
-export const matchingSectionSchema = z.object({
-  title: z.string().optional(),
-  marks: z.string().optional(),
-  instructions: z.string().optional(),
-  rows: z.array(matchingRowSchema),
-});
 
 // --- 3. Main Paper Schema ---
 export const paperSchema = z.object({
@@ -77,7 +67,6 @@ export const paperSchema = z.object({
   fillBlankSections: z.array(fillBlankSectionSchema),
   shortQuestionSections: z.array(shortQuestionSectionSchema),
   longQuestionSections: z.array(longQuestionSectionSchema),
-  matchingSections: z.array(matchingSectionSchema),
 });
 
 export type PaperValues = z.infer<typeof paperSchema>;

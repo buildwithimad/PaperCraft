@@ -69,6 +69,7 @@ export function PaperForm({ lang, paperId, defaultValues }: PaperFormProps) {
   const longCount = methods.watch("longQuestionSections")?.length ?? 0;
 
   const onSubmit = async (data: PaperValues) => {
+    console.log("SUBMIT DATA:", data);
     setIsSaving(true);
 
     try {
